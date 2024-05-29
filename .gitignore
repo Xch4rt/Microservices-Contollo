@@ -396,3 +396,11 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/OrderManagement/ApiGateway/appsettings.Development.json
+/OrderManagement/ApiGateway/appsettings.json
+/OrderManagement/OrderService/appsettings.Development.json
+/OrderManagement/OrderService/appsettings.json
+/OrderManagement/ProductService/appsettings.Development.json
+/OrderManagement/ProductService/appsettings.json
+/OrderManagement/UserService/appsettings.json
+/OrderManagement/UserService/appsettings.Development.json

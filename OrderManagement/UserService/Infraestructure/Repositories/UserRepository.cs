@@ -1,4 +1,5 @@
-﻿using UserService.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using UserService.Domain.Entities;
 using UserService.Domain.Repositories;
 using UserService.Infraestructure.Persistence;
 
@@ -38,6 +39,11 @@ namespace UserService.Infraestructure.Repositories
         public Task<User> FindByNameAsync(string name)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<User> FindByUsernameAsync(string username)
+        {
+            return await _userContext.Users.FirstOrDefaultAsync(u => u.Username == username);
         }
 
         public Task UpdateAsync(User user)

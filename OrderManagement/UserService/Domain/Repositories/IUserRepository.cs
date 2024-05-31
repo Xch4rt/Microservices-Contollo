@@ -10,5 +10,6 @@ namespace UserService.Domain.Repositories
         Task<User> FindByIdAsync(Guid id);
         Task<User> FindByNameAsync(string name);
         Task<User> FindByEmailAsync(string email);
+        Task<User> FindByUsernameAsync (string username);
     }
 }

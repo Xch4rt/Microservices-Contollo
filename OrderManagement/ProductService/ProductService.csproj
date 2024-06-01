@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.6" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
@@ -17,15 +21,8 @@
   <ItemGroup>
     <Folder Include="API\Controllers\" />
     <Folder Include="API\DTOs\" />
-    <Folder Include="Application\Commands\" />
-    <Folder Include="Application\Handlers\" />
-    <Folder Include="Application\Queries\" />
-    <Folder Include="Domain\Entities\" />
     <Folder Include="Domain\ValueObjects\" />
-    <Folder Include="Domain\Repositories\" />
     <Folder Include="Infraestructure\Configuration\" />
-    <Folder Include="Infraestructure\Repositories\" />
-    <Folder Include="Infraestructure\Persistence\" />
   </ItemGroup>
 
 </Project>

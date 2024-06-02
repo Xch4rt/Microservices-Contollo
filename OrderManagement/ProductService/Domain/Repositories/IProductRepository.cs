@@ -7,7 +7,8 @@ namespace ProductService.Domain.Repositories
         Task AddAsync(Product product);
         Task UpdateAsync(Product product);
         Task DeleteAsync(Guid id);
+        Task<List<Product>> FindAllAsync();  
         Task<Product> FindByIdAsync(Guid id);
-        Task<Product> FindByName(string name);
+        Task<Product> FindByNameAsync(string name);
     }
 }

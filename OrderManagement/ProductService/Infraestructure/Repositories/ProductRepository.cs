@@ -1,4 +1,5 @@
-﻿using ProductService.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using ProductService.Domain.Entities;
 using ProductService.Domain.Repositories;
 using ProductService.Infraestructure.Persistence;
 
@@ -24,19 +25,26 @@ namespace ProductService.Infraestructure.Repositories
             throw new NotImplementedException();
         }
 
+        public async Task<List<Product>> FindAllAsync()
+        {
+            return await _productContext.Products.ToListAsync();
+        }
+
         public async Task<Product> FindByIdAsync(Guid id)
         {
             return await _productContext.Products.FindAsync(id);
         }
 
-        public Task<Product> FindByName(string name)
+        public Task<Product> FindByNameAsync(string name)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(Product product)
+        public async Task UpdateAsync(Product product)
         {
-            throw new NotImplementedException();
+            _productContext.Products.Update(product);
+
+            await _productContext.SaveChangesAsync();
         }
     }
 }

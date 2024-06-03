@@ -1,6 +1,9 @@
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using ProductService.Application.Commands;
 using ProductService.Application.Handlers;
 using ProductService.Domain.Repositories;
+using ProductService.Infraestructure.Messaging;
 using ProductService.Infraestructure.Persistence;
 using ProductService.Infraestructure.Repositories;
 
@@ -21,8 +24,13 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Creat
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
+builder.Services.AddScoped<ProductMessageListener>();
+
 var app = builder.Build();
 
+var mediator = app.Services.CreateScope().ServiceProvider.GetRequiredService<IMediator>();
+var listener = new ProductMessageListener(mediator);
+listener.StartListening();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

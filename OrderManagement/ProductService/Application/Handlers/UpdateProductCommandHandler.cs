@@ -33,7 +33,7 @@ namespace ProductService.Application.Handlers
             }
             if (request.Quantity.HasValue)
             {
-                product.Quantity = request.Quantity.Value;
+                product.Quantity = product.Quantity - request.Quantity.Value;
             }
             if (request.Price.HasValue)
             {

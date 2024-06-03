@@ -21,6 +21,8 @@ namespace ProductService.Infraestructure.Messaging
             var factory = new ConnectionFactory()
             {
                 HostName = "localhost",
+                UserName = "user",
+                Password = "123456",
             };
 
             _connection = factory.CreateConnection();

@@ -10,7 +10,7 @@
         }
       ],
       "UpstreamPathTemplate": "/users/",
-      "UpstreamHttpMethod": [ "GET" ,"POST"]
+      "UpstreamHttpMethod": [ "GET", "POST" ]
     },
     {
       "DownstreamPathTemplate": "/api/Login",
@@ -23,6 +23,30 @@
       ],
       "UpstreamPathTemplate": "/login/",
       "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Products",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/products/",
+      "UpstreamHttpMethod": [ "POST", "GET", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Orders",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/orders/",
+      "UpstreamHttpMethod": [ "POST", "GET" ]
     }
   ]
 }

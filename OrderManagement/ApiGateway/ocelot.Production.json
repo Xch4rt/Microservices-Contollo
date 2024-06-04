@@ -5,24 +5,48 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "userservice",
+          "Host": "USERSERVICE_HOST",
           "Port": 5001
         }
       ],
       "UpstreamPathTemplate": "/users/",
-      "UpstreamHttpMethod": [ "GET" ,"POST"]
+      "UpstreamHttpMethod": [ "GET", "POST" ]
     },
     {
       "DownstreamPathTemplate": "/api/Login",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "userservice",
+          "Host": "USERSERVICE_HOST",
           "Port": 5001
         }
       ],
       "UpstreamPathTemplate": "/login/",
       "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Products",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "PRODUCTSERVICE_HOST",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/products/",
+      "UpstreamHttpMethod": [ "POST", "GET", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Orders",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "ORDERSERVICE_HOST",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/orders/",
+      "UpstreamHttpMethod": [ "POST", "GET" ]
     }
   ]
 }

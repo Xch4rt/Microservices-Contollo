@@ -7,23 +7,14 @@ services:
         context: .
         dockerfile: ApiGateway/Dockerfile
     ports:
-        - "5000:80"
+        - "5000:5000"
     depends_on:
         - userservice
     environment:
-        - ASPNETCORE_ENVIRONMENT=Production
-    networks:
-        - contollo_network
-
-  userservice:
-    image: userservice
-    build:
-        context: .
-        dockerfile: UserService/Dockerfile
-    ports:
-    - "5001:80"
-    environment:
-        - ASPNETCORE_ENVIRONMENT=Production
+        ASPNETCORE_ENVIRONMENT: Production
+        USERSERVICE_HOST: userservice
+        PRODUCTSERVICE_HOST: productservice
+        ORDERSERVICE_HOST: orderservice
     networks:
         - contollo_network
 
@@ -36,6 +27,50 @@ services:
     environment:
         RABBITMQ_DEFAULT_USER: user
         RABBITMQ_DEFAULT_PASS: "123456"
+
+  userservice:
+    image: userservice
+    build:
+        context: .
+        dockerfile: UserService/Dockerfile
+    ports:
+    - "5001:5001"
+    environment:
+        ASPNETCORE_ENVIRONMENT: Production
+    networks:
+        - contollo_network
+
+  productservice:
+    image: productservice
+    build:
+        context: .
+        dockerfile: ProductService/Dockerfile
+    ports:
+    - "5003:5003"
+    environment:
+        ASPNETCORE_ENVIRONMENT: Production
+        RABBITMQ_HOST: rabbitmq
+        RABBITMQ_PORT: 5672
+        RABBITMQ_DEFAULT_USER: user
+        RABBITMQ_DEFAULT_PASS: "123456"
+    depends_on:
+        - rabbitmq
+    networks:
+        - contollo_network
+
+  orderservice:
+    image: orderservice
+    build:
+        context: .
+        dockerfile: OrderService/Dockerfile
+    ports:
+    - "5002:5002"
+    environment:
+        ASPNETCORE_ENVIRONMENT: Production
+    networks:
+        - contollo_network
+  
+  
 
 networks:
     contollo_network:

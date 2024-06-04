@@ -28,7 +28,8 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Creat
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
-builder.Services.AddScoped<ProductMessageListener>();
+builder.Services.AddHostedService<ProductMessageListener>();
+
 
 var authenticationSettings = builder.Configuration.GetSection("AuthenticationSettings").Get<AuthenticationSettings>();
 
@@ -53,9 +54,7 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
-var mediator = app.Services.CreateScope().ServiceProvider.GetRequiredService<IMediator>();
-var listener = new ProductMessageListener(mediator);
-listener.StartListening();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

@@ -1,11 +1,15 @@
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using ProductService.Application.Commands;
 using ProductService.Application.Handlers;
 using ProductService.Domain.Repositories;
+using ProductService.Infraestructure.Configuration;
 using ProductService.Infraestructure.Messaging;
 using ProductService.Infraestructure.Persistence;
 using ProductService.Infraestructure.Repositories;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +30,27 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 builder.Services.AddScoped<ProductMessageListener>();
 
+var authenticationSettings = builder.Configuration.GetSection("AuthenticationSettings").Get<AuthenticationSettings>();
+
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey))
+    };
+});
+
+
 var app = builder.Build();
 
 var mediator = app.Services.CreateScope().ServiceProvider.GetRequiredService<IMediator>();
@@ -39,6 +64,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

@@ -45,7 +45,7 @@ That's it! :)
 - [x] Develop an Endpoint to create a new User
 - [x] Develop an Endpoint to create Orders
 - [x] Develop an Endpoint to get Orders by UserId
-- [ ] Develop an Endpoint to get an Order by ID
+- [x] Develop an Endpoint to get an Order by ID
 - [x] Implement CQRS pattern
 - [x] Implement Query Handlers
 - [x] Implement Command Handler

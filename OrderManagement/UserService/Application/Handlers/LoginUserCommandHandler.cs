@@ -20,14 +20,25 @@ namespace UserService.Application.Handlers
 
         public async Task<TokenRequestDto> Handle(LoginUserCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.FindByUsernameAsync(request.Username);
-            if (user == null || !_passwordRepository.VerifyPassword(request.Password, user.Password))
+            try
             {
-                throw new UnauthorizedAccessException("Invalid credentials.");
-            }
+                var user = await _userRepository.FindByUsernameAsync(request.Username);
+                if (user == null || !_passwordRepository.VerifyPassword(request.Password, user.Password))
+                {
+                    throw new UnauthorizedAccessException("Invalid credentials.");
+                }
 
-            var token = _tokenRepository.GenerateToken(user);
-            return new TokenRequestDto { Token = token };
+                var token = _tokenRepository.GenerateToken(user);
+                return new TokenRequestDto { Token = token };
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                throw new ApplicationException("Unauthorized access while attempting to log in.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("An unexpected error occurred while attempting to log in.", ex);
+            }
         }
     }
 }
